@@ -63,6 +63,12 @@ today = dt.datetime.now()
 choice = random.randint(1, letters)
 letter_chosen = f"letter_templates/letter_{choice}.txt"
 
+print("Today:", today, flush=True)
+print("Birthday:", birthday, flush=True)
+# print("Email:", email, flush=True)
+print("Letter:", letter_to_send, flush=True)
+
+print("========== BEFORE EMAIL CONDITION ==========", flush=True)
 for record in birthdays_dict:
     if record["day"] == today.day and record["month"] == today.month:
         with open(letter_chosen, "r") as text:
