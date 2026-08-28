@@ -13,26 +13,59 @@ import smtplib
 import os
 
 # import os and use it to get the Github repository secrets
-MY_EMAIL = os.environ.get("MY_EMAIL")
-MY_PASSWORD = os.environ.get("MY_PASSWORD")
+# MY_EMAIL = os.environ.get("MY_EMAIL")
+# MY_PASSWORD = os.environ.get("MY_PASSWORD")
 
-today = datetime.now()
-today_tuple = (today.month, today.day)
+# today = datetime.now()
+# today_tuple = (today.month, today.day)
 
-data = pandas.read_csv("birthdays.csv")
-birthdays_dict = {(data_row["month"], data_row["day"])                  : data_row for (index, data_row) in data.iterrows()}
-if today_tuple in birthdays_dict:
-    birthday_person = birthdays_dict[today_tuple]
-    file_path = f"letter_templates/letter_{random.randint(1, 3)}.txt"
-    with open(file_path) as letter_file:
-        contents = letter_file.read()
-        contents = contents.replace("[NAME]", birthday_person["name"])
+# data = pandas.read_csv("birthdays.csv")
+# birthdays_dict = {(data_row["month"], data_row["day"])                  : data_row for (index, data_row) in data.iterrows()}
+# if today_tuple in birthdays_dict:
+#     birthday_person = birthdays_dict[today_tuple]
+#     file_path = f"letter_templates/letter_{random.randint(1, 3)}.txt"
+#     with open(file_path) as letter_file:
+#         contents = letter_file.read()
+#         contents = contents.replace("[NAME]", birthday_person["name"])
 
-    with smtplib.SMTP("YOUR EMAIL PROVIDER SMTP SERVER ADDRESS") as connection:
-        connection.starttls()
-        connection.login(MY_EMAIL, MY_PASSWORD)
-        connection.sendmail(
-            from_addr=MY_EMAIL,
-            to_addrs=birthday_person["email"],
-            msg=f"Subject:Happy Birthday!\n\n{contents}"
-        )
+#     with smtplib.SMTP("YOUR EMAIL PROVIDER SMTP SERVER ADDRESS") as connection:
+#         connection.starttls()
+#         connection.login(MY_EMAIL, MY_PASSWORD)
+#         connection.sendmail(
+#             from_addr=MY_EMAIL,
+#             to_addrs=birthday_person["email"],
+#             msg=f"Subject:Happy Birthday!\n\n{contents}"
+#         )
+
+gmail_username = os.environ.get("GMAIL_USERNAME")
+gmail_password = os.environ.get("GMAIL_PASSWORD")
+google_app_password = os.environ.get("GOOGLE_APP_PASSWORD")
+yahoo_username = os.environ.get("YAHOO_USERNAME")
+yahoo_password_for_sending_email = os.environ.get("YAHOO_PASSWORD_FOR_SENDING_EMAIL")
+yahoo_password = os.environ.get("YAHOO_PASSWORD")
+gmail_smtp_address = "smtp.gmail.com"
+yahoo_smtp_address = "smtp.mail.yahoo.com"
+letters = len(os.listdir("letter_templates"))
+
+with open("birthdays.csv") as bdays:
+    birthdays = pandas.read_csv(bdays)
+    birthdays_dict = birthdays.to_dict(orient="records")
+
+today = dt.datetime.now()
+choice = random.randint(1, letters)
+letter_chosen = f"letter_templates/letter_{choice}.txt"
+
+for record in birthdays_dict:
+    if record["day"] == today.day and record["month"] == today.month:
+        with open(letter_chosen, "r") as text:
+            letter = text.read()
+            letter_to_send = letter.replace("[NAME]", record["name"])
+            email = record["email"]
+
+        with smtplib.SMTP(yahoo_smtp_address) as connection:
+            connection.starttls()  # makes the connection secure. In case the email gets intercepted no one can read it.
+            connection.login(user=yahoo_username, password=yahoo_password_for_sending_email)
+            connection.sendmail(
+                from_addr=yahoo_username,
+                to_addrs=email,
+                msg=f"Subject:Happy Birthday! \n\n{letter_to_send}")
