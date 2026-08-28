@@ -45,4 +45,4 @@ jobs:
           MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
           YAHOO_USERNAME: ${{secrets.YAHOO_USERNAME}}
           YAHOO_PASSWORD_FOR_SENDING_EMAIL: ${{secrets.YAHOO_PASSWORD_FOR_SENDING_EMAIL}}
-        run: python main.py
+        run: python -u main.py
