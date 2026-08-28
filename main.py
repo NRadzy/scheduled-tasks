@@ -75,4 +75,4 @@ for record in birthdays_dict:
                 from_addr=yahoo_username,
                 to_addrs=email,
                 msg=f"Subject:Happy Birthday! \n\n{letter_to_send}")
-                print("Email Sent")
+            print("Email Sent")
