@@ -65,7 +65,8 @@ for record in birthdays_dict:
 
         with smtplib.SMTP(yahoo_smtp_address) as connection:
             connection.starttls()  # makes the connection secure. In case the email gets intercepted no one can read it.
-            connection.login(user=yahoo_username, password=yahoo_password_for_sending_email)
+            # connection.login(user=yahoo_username, password=yahoo_password_for_sending_email)
+            connection.login(user=yahoo_username, password=yahoo_password)
             connection.sendmail(
                 from_addr=yahoo_username,
                 to_addrs=email,
