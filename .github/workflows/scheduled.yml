@@ -43,4 +43,6 @@ jobs:
           # Add more secrets in Settings > Secrets > Actions
           MY_EMAIL: ${{ secrets.MY_EMAIL }}
           MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
+          YAHOO_USERNAME: ${{secrets.YAHOO_USERNAME}}
+          YAHOO_PASSWORD_FOR_SENDING_EMAIL: ${{secrets.YAHOO_PASSWORD_FOR_SENDING_EMAIL}}
         run: python main.py
