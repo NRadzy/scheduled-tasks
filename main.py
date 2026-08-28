@@ -64,7 +64,7 @@ choice = random.randint(1, letters)
 letter_chosen = f"letter_templates/letter_{choice}.txt"
 
 print("Today:", today, flush=True)
-print("Birthday:", birthday, flush=True)
+print("Birthday:", birthdays, flush=True)
 # print("Email:", email, flush=True)
 print("Letter:", letter_to_send, flush=True)
 
