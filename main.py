@@ -6,8 +6,9 @@
 # See the solution video in the 100 Days of Python Course for explainations.
 
 
-from datetime import datetime
-import pandas
+# from datetime import datetime
+import datetime as dt
+import pandas as pandas
 import random
 import smtplib
 import os
