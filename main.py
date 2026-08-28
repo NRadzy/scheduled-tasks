@@ -70,9 +70,9 @@ for record in birthdays_dict:
             connection.starttls()  # makes the connection secure. In case the email gets intercepted no one can read it.
             connection.login(user=yahoo_username, password=yahoo_password_for_sending_email)
             # connection.login(user=yahoo_username, password=yahoo_password)
-        print("Sending email...")    
+            print("Sending email...")    
             connection.sendmail(
                 from_addr=yahoo_username,
                 to_addrs=email,
                 msg=f"Subject:Happy Birthday! \n\n{letter_to_send}")
-        print("Email Sent")
+                print("Email Sent")
