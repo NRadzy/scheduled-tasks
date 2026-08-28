@@ -7,6 +7,7 @@
 
 
 # from datetime import datetime
+from dotenv import load_dotenv
 import datetime as dt
 import pandas as pandas
 import random
@@ -37,6 +38,8 @@ import os
 #             to_addrs=birthday_person["email"],
 #             msg=f"Subject:Happy Birthday!\n\n{contents}"
 #         )
+
+load_dotenv()
 
 gmail_username = os.environ.get("GMAIL_USERNAME")
 gmail_password = os.environ.get("GMAIL_PASSWORD")
