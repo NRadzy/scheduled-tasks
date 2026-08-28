@@ -5,7 +5,7 @@
 # 4. Update birthdays.csv to contain today's month and day.
 # See the solution video in the 100 Days of Python Course for explainations.
 
-
+print("========== MAIN.PY STARTED ==========", flush=True)
 # from datetime import datetime
 from dotenv import load_dotenv
 import datetime as dt
@@ -51,9 +51,13 @@ gmail_smtp_address = "smtp.gmail.com"
 yahoo_smtp_address = "smtp.mail.yahoo.com"
 letters = len(os.listdir("letter_templates"))
 
+print("========== BIRTHDAY LOOKUP ==========", flush=True)
+
 with open("birthdays.csv") as bdays:
     birthdays = pandas.read_csv(bdays)
     birthdays_dict = birthdays.to_dict(orient="records")
+
+print("========== MESSAGE LOOKUP ==========", flush=True)
 
 today = dt.datetime.now()
 choice = random.randint(1, letters)
@@ -65,14 +69,14 @@ for record in birthdays_dict:
             letter = text.read()
             letter_to_send = letter.replace("[NAME]", record["name"])
             email = record["email"]
-        print("connecting...")
+        print("connecting...", flush=True)
         with smtplib.SMTP(yahoo_smtp_address) as connection:
             connection.starttls()  # makes the connection secure. In case the email gets intercepted no one can read it.
             connection.login(user=yahoo_username, password=yahoo_password_for_sending_email)
             # connection.login(user=yahoo_username, password=yahoo_password)
-            print("Sending email...")    
+            print("Sending email...", flush=True)    
             connection.sendmail(
                 from_addr=yahoo_username,
                 to_addrs=email,
                 msg=f"Subject:Happy Birthday! \n\n{letter_to_send}")
-            print("Email Sent")
+            print("Email Sent", flush=True)
